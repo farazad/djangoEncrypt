@@ -1,6 +1,11 @@
-from rest_framework_jwt.utils import jwt_payload_handler as default_payload_handler
+from rest_framework_simplejwt.tokens import AccessToken
 
-def jwt_payload_handler(user):
-    payload = default_payload_handler(user)
-    payload['username'] = user.username
-    return payload
+class CustomToken(AccessToken):
+    def __init__(self, token=None, verify=True):
+        super().__init__(token, verify)
+
+    @property
+    def payload(self):
+        payload = super().payload
+        payload['username'] = self.user.username  # Replace 'username' with the field name you want
+        return payload
