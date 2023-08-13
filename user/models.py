@@ -1,3 +1,6 @@
+# models.py
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+class CustomUser(AbstractUser):
+    last_login = models.DateTimeField(null=True, blank=True)
